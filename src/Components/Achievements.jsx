@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Plus } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useToast } from './ToastProvider';
 import './Achievements.css';
 
@@ -163,6 +164,7 @@ const Achievements = () => {
                   <th>Start Date</th>
                   <th>End Date</th>
                   <th>Status</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -176,6 +178,11 @@ const Achievements = () => {
                       <span className={`status-badge ${achievement.verificationStatus}`}>
                         {achievement.verificationStatus}
                       </span>
+                    </td>
+                    <td>
+                      <Link to={`/achievements/${achievement.id}`} className="btn-view">
+                        View Details
+                      </Link>
                     </td>
                   </tr>
                 ))}

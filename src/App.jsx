@@ -5,8 +5,11 @@ import Registration from './Components/Registration';
 import Navbar from './Components/Navbar';
 import StudentHomepage from './Components/StudentHomepage';
 import Achievements from './Components/Achievements';
+import AchievementDetails from './Components/AchievementDetails';
 import Certificates from './Components/Certificates';
+import CertificateDetails from './Components/CertificateDetails';
 import Projects from './Components/Projects';
+import ProjectDetails from './Components/ProjectDetails';
 import Internships from './Components/Internships';
 import InternshipDetails from './Components/InternshipDetails';
 import ToastProvider from './Components/ToastProvider';
@@ -64,16 +67,34 @@ function App() {
               <Achievements />
             </ProtectedRoute>
           } />
+
+          <Route path="/achievements/:id" element={
+            <ProtectedRoute>
+              <AchievementDetails />
+            </ProtectedRoute>
+          } />
           
           <Route path="/certificates" element={
             <ProtectedRoute>
               <Certificates />
             </ProtectedRoute>
           } />
+
+          <Route path="/certificates/:id" element={
+            <ProtectedRoute>
+              <CertificateDetails />
+            </ProtectedRoute>
+          } />
           
           <Route path="/projects" element={
             <ProtectedRoute>
               <Projects />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/projects/:id" element={
+            <ProtectedRoute>
+              <ProjectDetails />
             </ProtectedRoute>
           } />
 

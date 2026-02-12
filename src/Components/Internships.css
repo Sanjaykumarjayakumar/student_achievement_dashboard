@@ -140,6 +140,10 @@
   border-bottom: 1px solid #e5e7eb;
 }
 
+.internships-table tbody tr:hover {
+  background: #f8fafc;
+}
+
 .btn-view {
   display: inline-flex;
   align-items: center;

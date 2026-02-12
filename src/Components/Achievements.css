@@ -145,6 +145,24 @@ textarea.form-input {
   border-bottom: 1px solid #e5e7eb;
 }
 
+.achievements-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.btn-view {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+  background: #2563eb;
+  color: #ffffff;
+  border: 1px solid #1d4ed8;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
 .status-badge {
   padding: 3px 10px;
   border-radius: 6px;

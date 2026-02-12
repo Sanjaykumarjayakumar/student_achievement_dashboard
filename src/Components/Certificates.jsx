@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Plus } from 'lucide-react';
+import { Plus, FileBadge2 } from 'lucide-react';
 import { useToast } from './ToastProvider';
 import './Certificates.css';
 
@@ -155,7 +155,7 @@ const Certificates = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="credentialField">Credenitional Field / Certificate URL</label>
+              <label htmlFor="credentialField">Credenitional / Certificate URL</label>
               <input
                 type="text"
                 id="credentialField"
@@ -189,32 +189,39 @@ const Certificates = () => {
           </form>
         </div>
       ) : (
-        <div className="table-container">
+        <div className="certificate-card-wrap">
           {certificates.length > 0 ? (
-            <table className="certificates-table">
-              <thead>
-                <tr>
-                  <th>Certificate Name</th>
-                  <th>Issuing Organization</th>
-                  <th>Issue Date</th>
-                  <th>Expire Date</th>
-                  <th>Credenitional Field / Certificate URL</th>
-                  <th>PDF</th>
-                </tr>
-              </thead>
-              <tbody>
-                {certificates.map((certificate) => (
-                  <tr key={certificate.id}>
-                    <td>{certificate.name}</td>
-                    <td>{certificate.issuingOrg}</td>
-                    <td>{certificate.issueDate ? new Date(certificate.issueDate).toLocaleDateString() : '-'}</td>
-                    <td>{certificate.expiryDate ? new Date(certificate.expiryDate).toLocaleDateString() : '-'}</td>
-                    <td>{certificate.credentialField || certificate.credentialId || '-'}</td>
-                    <td>{certificate.certificatePdfName || '-'}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <div className="certificate-cards-grid">
+              {certificates.map((certificate) => (
+                <div key={certificate.id} className="certificate-card">
+                  <div className="certificate-card-image">
+                    <FileBadge2 size={24} />
+                    <span>Certificate</span>
+                  </div>
+                  <div className="certificate-card-details">
+                    <p><strong>Name:</strong> {certificate.name || ''}</p>
+                    <p><strong>Issuing Organization:</strong> {certificate.issuingOrg || ''}</p>
+                    <p><strong>Issue Date:</strong> {certificate.issueDate ? new Date(certificate.issueDate).toLocaleDateString('en-GB') : ''}</p>
+                  </div>
+                  <div className="certificate-card-actions">
+                    <a
+                      href={certificate.credentialField || certificate.credentialId || '#'}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={`btn-certificate-link ${!(certificate.credentialField || certificate.credentialId) ? 'disabled' : ''}`}
+                      onClick={(e) => {
+                        if (!(certificate.credentialField || certificate.credentialId)) {
+                          e.preventDefault();
+                          toast.error('Certificate URL is not available');
+                        }
+                      }}
+                    >
+                      View Certificate
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
           ) : (
             <div className="no-certificates">
               <p>No certificates available</p>

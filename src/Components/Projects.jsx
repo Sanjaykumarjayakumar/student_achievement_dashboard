@@ -10,7 +10,6 @@ const Projects = () => {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    technologies: '',
     startDate: '',
     endDate: '',
     projectUrl: '',
@@ -61,8 +60,7 @@ const Projects = () => {
 
     const newProject = {
       ...formData,
-      id: Date.now(),
-      technologies: formData.technologies.split(',').map(t => t.trim())
+      id: Date.now()
     };
 
     const updatedProjects = [...projects, newProject];
@@ -72,7 +70,6 @@ const Projects = () => {
     setFormData({
       title: '',
       description: '',
-      technologies: '',
       startDate: '',
       endDate: '',
       projectUrl: '',
@@ -120,20 +117,6 @@ const Projects = () => {
                 onChange={handleChange}
                 className="form-input"
                 rows="4"
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="technologies">Technologies (comma-separated) *</label>
-              <input
-                type="text"
-                id="technologies"
-                name="technologies"
-                value={formData.technologies}
-                onChange={handleChange}
-                className="form-input"
-                placeholder="React, Node.js, MongoDB"
                 required
               />
             </div>
@@ -222,29 +205,38 @@ const Projects = () => {
               <thead>
                 <tr>
                   <th>Project Title</th>
-                  <th>Technologies</th>
                   <th>Start Date</th>
                   <th>End Date</th>
                   <th>Status</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
                 {projects.map((project) => (
                   <tr key={project.id}>
                     <td>{project.title}</td>
-                    <td>
-                      <div className="tech-tags">
-                        {project.technologies.map((tech, index) => (
-                          <span key={index} className="tech-tag">{tech}</span>
-                        ))}
-                      </div>
-                    </td>
                     <td>{project.startDate ? new Date(project.startDate).toLocaleDateString() : '-'}</td>
                     <td>{project.endDate ? new Date(project.endDate).toLocaleDateString() : '-'}</td>
                     <td>
                       <span className={`status-badge ${project.endDate ? 'completed' : 'ongoing'}`}>
                         {project.endDate ? 'Completed' : 'Ongoing'}
                       </span>
+                    </td>
+                    <td>
+                      <a
+                        href={project.projectUrl || '#'}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="btn-view"
+                        onClick={(e) => {
+                          if (!project.projectUrl) {
+                            e.preventDefault();
+                            toast.error('Project URL is not available');
+                          }
+                        }}
+                      >
+                        View Project
+                      </a>
                     </td>
                   </tr>
                 ))}
