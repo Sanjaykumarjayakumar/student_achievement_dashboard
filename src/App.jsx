@@ -13,6 +13,7 @@ import ProjectDetails from './Components/ProjectDetails';
 import Internships from './Components/Internships';
 import InternshipDetails from './Components/InternshipDetails';
 import ToastProvider from './Components/ToastProvider';
+import AdminDashboard from './Components/AdminDashboard';
 import './App.css';
 
 function App() {
@@ -55,7 +56,7 @@ function App() {
         <Routes>
           <Route path="/login" element={user ? <Navigate to="/homepage" replace /> : <Login onLogin={handleLogin} />} />
           <Route path="/register" element={user ? <Navigate to="/homepage" replace /> : <Registration onLogin={handleLogin} />} />
-          
+          <Route path="/admindashboard" element={<AdminDashboard/>} />
           <Route path="/homepage" element={
             <ProtectedRoute>
               <StudentHomepage user={user} />
